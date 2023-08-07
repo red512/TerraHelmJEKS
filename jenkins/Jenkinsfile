@@ -5,6 +5,12 @@ node {
         checkout scm
     }
 
+    stage('Docker test') {
+        app.inside {
+            sh 'docker version'
+        }
+    }
+
     stage('Build image') {
         app = docker.build('projectred521/flask-hello-dev')
     }
