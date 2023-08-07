@@ -1,6 +1,10 @@
 node {
     def app
 
+    stage('Clone repository') {
+        checkout scm
+    }
+
     stages {
         stage('Docker test') {
             steps {
@@ -9,10 +13,6 @@ node {
                 }
             }
         }
-    }
-
-    stage('Clone repository') {
-        checkout scm
     }
 
     stage('Build image') {
@@ -31,8 +31,8 @@ node {
         }
     }
 
-// stage('Trigger ManifestUpdate') {
-//             echo 'triggering updatemanifestjob'
-//             build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-// }
+    // stage('Trigger ManifestUpdate') {
+    //             echo 'triggering updatemanifestjob'
+    //             build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+    // }
 }
