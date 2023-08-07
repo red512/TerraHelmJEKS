@@ -5,12 +5,6 @@ node {
         checkout scm
     }
 
-    stage('Docker test') {
-        app.inside {
-            sh 'docker version'
-        }
-    }
-
     stage('Build image') {
         app = docker.build('projectred521/flask-hello-dev')
     }
@@ -27,8 +21,8 @@ node {
         }
     }
 
-    stage('Trigger ManifestUpdate') {
-                echo 'triggering updatemanifestjob'
-                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-    }
+    // stage('Trigger ManifestUpdate') {
+    //             echo 'triggering updatemanifestjob'
+    //             build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+    // }
 }
